@@ -1,0 +1,4 @@
+<?php
+
+$verficarUsuario->cerrarSesionController();
+?>
