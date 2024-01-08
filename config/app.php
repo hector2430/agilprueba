@@ -1,6 +1,6 @@
 <?php 
 
-const APP_URL = "http://localhost/AGIL/";
+const APP_URL = "https://agilprueba-production.up.railway.app/";
 const APP_NAME = "AGIL SISTEMA WEB";
 const APP_SESSION_NAME = "AGIL";
 
