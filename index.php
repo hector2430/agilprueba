@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php require_once './app/views/inc/head.php';?>
+    <?php require_once './app/Views/inc/head.php';?>
 </head>
 <body>
     
@@ -26,15 +26,15 @@
     $vista=$viewsController->obtenerVistasControllador($url[0]);
     if($vista =="login" || $vista == "404"){
        
-        require_once "./app/views/content/".$vista."-view.php";
+        require_once "./app/Views/content/".$vista."-view.php";
     }else{
         if(!isset($_SESSION['id_usuario']) || !isset($_SESSION['nombre_usuario']) || $_SESSION['nombre_usuario'] =="" ||$_SESSION['id_usuario'] == ""  ){
             $inicio_sesion->cerrarSesionController();
             exit();
         }
-        require_once  "./app/views/inc/navbar.php";
+        require_once  "./app/Views/inc/navbar.php";
         require_once $vista;
     }
-    require_once './app/views/inc/script.php';?>
+    require_once './app/Views/inc/script.php';?>
 </body>
 </html>
