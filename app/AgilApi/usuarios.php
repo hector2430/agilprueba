@@ -3,7 +3,7 @@
     require_once '../../config/app.php';
     require_once '../../autoload.php';
 
-    use app\controllers\usuarioController;
+    use app\Controllers\usuarioController;
     $userController = new usuarioController(); 
 
     
