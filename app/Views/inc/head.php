@@ -4,4 +4,4 @@
 <link rel="stylesheet" href="<?php echo APP_URL;  ?>/app/views/css/bulma.min.css">
 <link rel="stylesheet" href="<?php echo APP_URL;  ?>/app/views/css/estilos.css">
 <link rel="stylesheet" href="<?php echo APP_URL;  ?>/app/views/css/sweetalert2.min.css">
-<script src="<?php echo APP_URL;  ?>/app/views/js/sweetalert2.all.min.js"></script>
+<script src="<?php echo APP_URL;  ?>/app/Views/js/sweetalert2.all.min.js"></script>
