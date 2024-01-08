@@ -2,7 +2,7 @@
 
 namespace app\Controllers;
 
-use app\models\mainModel;
+use app\Models\mainModel;
 
 
 class loginController extends mainModel{
