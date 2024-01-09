@@ -3,7 +3,8 @@
 namespace app\Controllers;
 
 use app\Models\mainModel;
-
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class usuarioController extends mainModel{
 
@@ -210,6 +211,13 @@ class usuarioController extends mainModel{
         }else{
             $foto ="";
         }
+        $now = strtotime("now");
+        $key = APP_SESSION_NAME;
+        $payload = [
+            'exp' => $now +3600,
+            'data' => $rut,
+        ];
+        $jwt = JWT::encode($payload, $key, 'HS256');
         $usuario_datos_reg= [
             [
                 "campo_nombre" => "Usuario_Dni ",
@@ -251,6 +259,11 @@ class usuarioController extends mainModel{
                 "campo_nombre" => "img",
                 "campo_marcador" => ":img",
                 "campo_valor" => $foto,
+            ],
+            [
+                "campo_nombre" => "tokenjwt",
+                "campo_marcador" => ":token",
+                "campo_valor" => $jwt,
             ]
         ];
       
@@ -688,7 +701,8 @@ class usuarioController extends mainModel{
                 'direccion'=>$fila["Direccion"],
                 'img_ruta' => $fila["img"],
                 'rating' => $fila["Ranking"],
-                'id_negocio' => $fila["id_negocio"], 
+                'id_negocio' => $fila["id_negocio"],
+                'tokenjwt' => $fila["tokenjwt"] 
             ];
         }
         return $datos;
@@ -760,7 +774,13 @@ class usuarioController extends mainModel{
         }
 
         $contrasena = password_hash($contrasena,PASSWORD_BCRYPT,["cost"=>10]);
-
+        $now = strtotime("now");
+        $key = APP_SESSION_NAME;
+        $payload = [
+            'exp' => $now +3600,
+            'data' => $rut,
+        ];
+        $jwt = JWT::encode($payload, $key, 'HS256');
         $usuario_datos_reg= [
             [
                 "campo_nombre" => "Usuario_Dni ",
@@ -802,6 +822,11 @@ class usuarioController extends mainModel{
                 "campo_nombre" => "img",
                 "campo_marcador" => ":img",
                 "campo_valor" => $img_ruta,
+            ],
+            [
+                "campo_nombre" => "tokenjwt",
+                "campo_marcador" => ":token",
+                "campo_valor" => $jwt,
             ]
         ];
       
