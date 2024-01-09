@@ -3,7 +3,8 @@
 namespace app\Controllers;
 
 use app\Models\mainModel;
-
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class loginController extends mainModel{
 
@@ -72,8 +73,18 @@ class loginController extends mainModel{
                     $_SESSION['direccion_usuario'] = $verficarUsuario["Direccion"];
                     $_SESSION['img_usuario'] = $verficarUsuario["img"];
                     $_SESSION['id_negocio_usuario'] = $verficarUsuario["id_negocio"];
+                    $now = strtotime("now");
+                    $key = APP_SESSION_NAME;
+                    $payload = [
+                        'exp' => $now +3600,
+                        'data' => $verficarUsuario["Usuario_Dni"],
+                    ];
+                    $jwt = JWT::encode($payload, $key, 'HS256');
+                    $_SESSION['token'] = $jwt;
                     if(headers_sent()){
-                        echo "<script> window.location.href='".APP_URL."dashboard/'</script>";
+                        echo "<script> 
+                        localStorage.setItem('token', '".$jwt."');
+                        window.location.href='".APP_URL."dashboard/'</script>";
                     }else{
                         header("Location: ".APP_URL."dashboard/");
                     }
