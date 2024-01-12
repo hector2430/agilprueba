@@ -682,6 +682,7 @@ class usuarioController extends mainModel{
         foreach($resultado as $fila){
             $datos[] = [
                 'id_usuario'=>$fila["Usuario_Dni"],
+                'correo'=>$fila["Correo"],
                 'tipo'=>$fila["Tipo"],
                 'contrasena' => $fila["Contrasena"],
                 'nombre'=>$fila["Nombre"],
