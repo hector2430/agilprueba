@@ -6,7 +6,7 @@
         protected function obtnerVistasModelo($vista){
 
             $listaBlanca=["dashboard","nuevoUsuario","listaUsuario","buscarUsuario","actualizarUsuario",
-            'fotoUsuario','cerrarSesion'];
+            'fotoUsuario','cerrarSesion','nuevoNegocio','listaNegocio','actualizarNegocio','nuevoGiro','listaGiro','nuevoTipoServicio','listaTipoServicio','actualizarTipoServicio',];
             if(in_array($vista, $listaBlanca)){
                 if (is_file("./app/views/content/".$vista."-view.php")) {
                     $contenido="./app/views/content/".$vista."-view.php";

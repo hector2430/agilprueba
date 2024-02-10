@@ -35,6 +35,60 @@
 
                 </div>
             </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">
+                    Negocios
+                </a>
+                <div class="navbar-dropdown is-boxed">
+
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>nuevoNegocio/">
+                        Nuevo
+                    </a>
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>listaNegocio/">
+                        Lista
+                    </a>
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>buscarNegocio/">
+                        Buscar
+                    </a>
+
+                </div>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">
+                    Giro
+                </a>
+                <div class="navbar-dropdown is-boxed">
+
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>nuevoGiro/">
+                        Nuevo
+                    </a>
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>listaGiro/">
+                        Lista
+                    </a>
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>buscarGiro/">
+                        Buscar
+                    </a>
+
+                </div>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">
+                    Tipo de servicio
+                </a>
+                <div class="navbar-dropdown is-boxed">
+
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>nuevoTipoServicio/">
+                        Nuevo
+                    </a>
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>listaTipoServicio/">
+                        Lista
+                    </a>
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>buscarTipoServicio/">
+                        Buscar
+                    </a>
+
+                </div>
+            </div>
         </div>
 
         <div class="navbar-end">
