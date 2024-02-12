@@ -45,63 +45,39 @@ class loginController extends mainModel{
                             });
                     </script>
                 ";
-        }else{
+        }
+        $verficarUsuario = $this->ejecutarConsulta("SELECT * FROM t_usuario WHERE Correo = '$correo'");
 
-            echo "
-            <script>
-                Swal.fire({
-                        icon:  'error',
-                        title: 'Ha ocurrido un error',
-                        text:  'kkkkk',
-                        confirmButtonText: 'Aceptar'
-                    });
-            </script>
-        ";
-            $verficarUsuario = $this->ejecutarConsulta("SELECT * FROM t_usuario WHERE Correo = '$correo'");
-
-            if($verficarUsuario->rowCount() == 1){
+        if($verficarUsuario->rowCount() == 1){
+            
+            $verficarUsuario = $verficarUsuario->fetch();
+            if($verficarUsuario["Correo"] ==$correo && password_verify($contrasena,$verficarUsuario["Contrasena"]) ){
                 
-                $verficarUsuario = $verficarUsuario->fetch();
-                if($verficarUsuario["Correo"] ==$correo && password_verify($contrasena,$verficarUsuario["Contrasena"]) ){
-                    
-                    
-                    $_SESSION['id_usuario'] = $verficarUsuario["Usuario_Dni"];
-                    $_SESSION['tipo_usuario'] = $verficarUsuario["Tipo"];
-                    $_SESSION['correo_usuario'] = $verficarUsuario["Correo"];
-                    $_SESSION['nombre_usuario'] = $verficarUsuario["Nombre"];
-                    $_SESSION['apellido_usuario'] = $verficarUsuario["Apellido"];
-                    $_SESSION['direccion_usuario'] = $verficarUsuario["Direccion"];
-                    $_SESSION['img_usuario'] = $verficarUsuario["img"];
-                    $_SESSION['id_negocio_usuario'] = $verficarUsuario["id_negocio"];
-                    $now = strtotime("now");
-                    $key = APP_SESSION_NAME;
-                    $payload = [
-                        'exp' => $now +3600,
-                        'data' => $verficarUsuario["Usuario_Dni"],
-                    ];
-                    /*$jwt = JWT::encode($payload, $key, 'HS256');
-                    $_SESSION['token'] = $jwt;
-                    if(headers_sent()){
-                        echo "<script> 
-                        localStorage.setItem('token', '".$jwt."');
-                        window.location.href='".APP_URL."dashboard/'</script>";
-                    }else{
-                        header("Location: ".APP_URL."dashboard/");
-                    }
-                    */
+                
+                $_SESSION['id_usuario'] = $verficarUsuario["Usuario_Dni"];
+                $_SESSION['tipo_usuario'] = $verficarUsuario["Tipo"];
+                $_SESSION['correo_usuario'] = $verficarUsuario["Correo"];
+                $_SESSION['nombre_usuario'] = $verficarUsuario["Nombre"];
+                $_SESSION['apellido_usuario'] = $verficarUsuario["Apellido"];
+                $_SESSION['direccion_usuario'] = $verficarUsuario["Direccion"];
+                $_SESSION['img_usuario'] = $verficarUsuario["img"];
+                $_SESSION['id_negocio_usuario'] = $verficarUsuario["id_negocio"];
+                $now = strtotime("now");
+                $key = APP_SESSION_NAME;
+                $payload = [
+                    'exp' => $now +3600,
+                    'data' => $verficarUsuario["Usuario_Dni"],
+                ];
+                /*$jwt = JWT::encode($payload, $key, 'HS256');
+                $_SESSION['token'] = $jwt;
+                if(headers_sent()){
+                    echo "<script> 
+                    localStorage.setItem('token', '".$jwt."');
+                    window.location.href='".APP_URL."dashboard/'</script>";
                 }else{
-                    echo "
-                        <script>
-                            Swal.fire({
-                                    icon:  'error',
-                                    title: 'Ha ocurrido un error',
-                                    text:  'Correo o contraseña incorrectos',
-                                    confirmButtonText: 'Aceptar'
-                                });
-                        </script>
-                    ";
+                    header("Location: ".APP_URL."dashboard/");
                 }
-
+                */
             }else{
                 echo "
                     <script>
@@ -114,6 +90,18 @@ class loginController extends mainModel{
                     </script>
                 ";
             }
+
+        }else{
+            echo "
+                <script>
+                    Swal.fire({
+                            icon:  'error',
+                            title: 'Ha ocurrido un error',
+                            text:  'Correo o contraseña incorrectos',
+                            confirmButtonText: 'Aceptar'
+                        });
+                </script>
+            ";
         }
     }
 
