@@ -3,8 +3,8 @@
 namespace app\Controllers;
 
 use app\Models\mainModel;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+//use Firebase\JWT\JWT;
+//use Firebase\JWT\Key;
 
 class loginController extends mainModel{
 
@@ -79,7 +79,7 @@ class loginController extends mainModel{
                         'exp' => $now +3600,
                         'data' => $verficarUsuario["Usuario_Dni"],
                     ];
-                    $jwt = JWT::encode($payload, $key, 'HS256');
+                    /*$jwt = JWT::encode($payload, $key, 'HS256');
                     $_SESSION['token'] = $jwt;
                     if(headers_sent()){
                         echo "<script> 
@@ -88,6 +88,7 @@ class loginController extends mainModel{
                     }else{
                         header("Location: ".APP_URL."dashboard/");
                     }
+                    */
                 }else{
                     echo "
                         <script>
