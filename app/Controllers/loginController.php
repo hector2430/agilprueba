@@ -78,6 +78,12 @@ class loginController extends mainModel{
                     header("Location: ".APP_URL."dashboard/");
                 }
                 */
+                if(headers_sent()){
+                    echo "<script> 
+                    window.location.href='".APP_URL."dashboard/'</script>";
+                }else{
+                    header("Location: ".APP_URL."dashboard/");
+                }
             }else{
                 echo "
                     <script>
