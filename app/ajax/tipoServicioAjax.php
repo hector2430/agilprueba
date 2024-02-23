@@ -9,13 +9,13 @@ use app\Controllers\tipo_servicio_Controller;
 if(isset($_POST["modulo_tipo_servicio"])){
     $tipo_servicio = new tipo_servicio_Controller();
     if($_POST["modulo_tipo_servicio"] =="registrar"){
-        echo $negocio->registrarTipoServicioController();
+        echo $tipo_servicio->registrarTipoServicioController();
     }
     if($_POST["modulo_tipo_servicio"] =="eliminar"){
-        echo $negocio->eliminaTipoServicioController();
+        echo $tipo_servicio->eliminaTipoServicioController();
     } 
     if($_POST["modulo_tipo_servicio"] =="actualizar"){
-        echo $negocio->actualizarTipoServicioController();
+        echo $tipo_servicio->actualizarTipoServicioController();
     }    
 }else{
     session_destroy();

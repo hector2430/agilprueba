@@ -114,7 +114,7 @@ class loginController extends mainModel{
     public function cerrarSesionController() {
     
         session_destroy();
-        if(header_sent()){
+        if(headers_sent()){
             echo "<script> window.location.href='".APP_URL."login/';</script>";
         }else{
             header("Location: ".APP_URL."login/");

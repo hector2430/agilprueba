@@ -89,6 +89,24 @@
 
                 </div>
             </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">
+                    Servicio
+                </a>
+                <div class="navbar-dropdown is-boxed">
+
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>nuevoServicio/">
+                        Nuevo
+                    </a>
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>listaServicio/">
+                        Lista
+                    </a>
+                    <a class="navbar-item" href="<?php echo APP_URL; ?>buscarServicio/">
+                        Buscar
+                    </a>
+
+                </div>
+            </div>
         </div>
 
         <div class="navbar-end">

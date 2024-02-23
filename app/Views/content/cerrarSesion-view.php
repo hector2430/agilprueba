@@ -1,4 +1,6 @@
 <?php
+use app\Controllers\loginController;
 
-$verficarUsuario->cerrarSesionController();
+$inicio_sesion = new loginController(); 
+$inicio_sesion->cerrarSesionController();
 ?>

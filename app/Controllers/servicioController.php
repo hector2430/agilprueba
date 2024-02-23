@@ -4,12 +4,12 @@ namespace app\Controllers;
 
 use app\Models\mainModel;
 
-class tipo_servicio_Controller extends mainModel{
+class servicioController extends mainModel{
 
-    public function registrarTipoServicioController() {
+    public function registrarServicioController() {
      #guardardatos
-     $nombre= $this->limpiarCadena($_POST["nombre_tipo"]);
-    
+     $nombre= $this->limpiarCadena($_POST["nombre"]);
+     $id_tipo= $this->limpiarCadena($_POST["id_tipo"]);
 
      if($nombre == ""){
 
@@ -37,22 +37,27 @@ class tipo_servicio_Controller extends mainModel{
      */
 
     
-     $tipo_servicio_datos_reg= [
+     $servicio_datos_reg= [
          [
-             "campo_nombre" => "nombre_tipo",
+             "campo_nombre" => "nombre_servicio",
              "campo_marcador" => ":nombre",
              "campo_valor" => $nombre,
-         ]
+         ],
+         [
+            "campo_nombre" => "id_tipo_servicio",
+            "campo_marcador" => ":idtipo",
+            "campo_valor" => $id_tipo,
+        ]
 
      ];
  
-     $registrarTipoServicio = $this->guardarDatos("t_servicio_tipo",$tipo_servicio_datos_reg);
+     $registrarServicio = $this->guardarDatos("t_servicio",$servicio_datos_reg);
      
-     if($registrarTipoServicio->rowCount() ==1 ){
+     if($registrarServicio->rowCount() ==1 ){
          $alerta= [
              "tipo" => "limpiar",
-             "titulo" =>"Tipo de servicio Registrado",
-             "texto" => "El tipop de servicio ". $nombre ." ha sido registrado correctamente",
+             "titulo" =>"Servicio Registrado",
+             "texto" => "El servicio ". $nombre ." ha sido registrado correctamente",
              "icono" => "success",
          ];
          return json_encode($alerta);
@@ -66,8 +71,8 @@ class tipo_servicio_Controller extends mainModel{
              "icono" => "error",
          ];
      }
- }
- public function listarTipoServicioController($pagina,$registros,$url,$busqueda){
+    }
+    public function listarServicioController($pagina,$registros,$url,$busqueda){
      
      $pagina= $this->limpiarCadena($pagina);
      $registros= $this->limpiarCadena($registros);
@@ -84,14 +89,14 @@ class tipo_servicio_Controller extends mainModel{
 
      if(isset($busqueda) && $busqueda != "") {
 
-         $consulta_datos ="SELECT * FROM t_servicio_tipo WHERE ((nombre_tipo LIKE '%$busqueda%')) LIMIT $inicio ,$registros";
+         $consulta_datos ="SELECT * FROM t_servicio WHERE ((nombre_servicio LIKE '%$busqueda%')) LIMIT $inicio ,$registros";
 
-         $consulta_total ="SELECT COUNT(id_tipo_servicio ) FROM t_servicio_tipo WHERE ((nombre_tipo LIKE '%$busqueda%'))";
+         $consulta_total ="SELECT COUNT(id_servicio ) FROM t_servicio WHERE ((nombre_servicio LIKE '%$busqueda%'))";
 
      }else{
-         $consulta_datos ="SELECT * FROM t_servicio_tipo  LIMIT $inicio ,$registros";
+         $consulta_datos ="SELECT * FROM t_servicio  LIMIT $inicio ,$registros";
 
-         $consulta_total ="SELECT COUNT(id_tipo_servicio ) FROM t_servicio_tipo ";
+         $consulta_total ="SELECT COUNT(id_servicio ) FROM t_servicio ";
      }
 
      $datos = $this->ejecutarConsulta($consulta_datos);
@@ -121,15 +126,15 @@ class tipo_servicio_Controller extends mainModel{
              $tabla.='
                      <tr class="has-text-centered" >
                      <td>'.$contador.'</td>
-                     <td>'.$fila['nombre_tipo'].'</td>
+                     <td>'.$fila['nombre_servicio'].'</td>
                      <td>
-                         <a href="'.APP_URL.'actualizarTipoServicio/'.$fila['id_tipo_servicio'].'/" class="button is-success is-rounded is-small">Actualizar</a>
+                         <a href="'.APP_URL.'actualizarTipoServicio/'.$fila['id_servicio'].'/" class="button is-success is-rounded is-small">Actualizar</a>
                      </td>
                      <td>
                          <form class="FormularioAjax" action="'.APP_URL.'app/ajax/GiroAjax.php" method="POST" autocomplete="off" >
 
                              <input type="hidden" name="modulo_tipo_servicio" value="eliminar">
-                             <input type="hidden" name="id_tipo_servicio" value="'.$fila['id_tipo_servicio'].'">
+                             <input type="hidden" name="id_tipo_servicio" value="'.$fila['id_servicio'].'">
 
                              <button type="submit" class="button is-danger is-rounded is-small">Eliminar</button>
                          </form>
@@ -171,6 +176,29 @@ class tipo_servicio_Controller extends mainModel{
          $tabla.=$this->paginadorTablas($pagina,$numeroPaginas,$url,7); 
      }
 
-     return $tabla;
+        return $tabla;
     }
+
+    public function listarTipoServicio(){
+
+        $select ="";
+        $consulta_datos ="SELECT * FROM t_servicio_tipo";
+    
+    
+        $datos = $this->ejecutarConsulta($consulta_datos);
+        $datos = $datos->fetchAll();
+        $select.=' <div class="columns">
+                    <div class="column">
+                        <label>Tipo Servicio</label>
+                        <div class="select" style="width: 100%;">
+                            <select name="id_tipo" id="id_tipo" style="width: 100%;">';
+        foreach($datos as $fila){
+            $select.=' <option value="'.$fila['id_tipo_servicio'].'">'.$fila['nombre_tipo'].'</option>';
+        }
+        $select.='        </select>
+                        </div>
+                    </div>
+                </div>';
+        return $select;
+       }
 }
